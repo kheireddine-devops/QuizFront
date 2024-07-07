@@ -1,0 +1,43 @@
+.page-container {
+  .page-sidebar {
+    width: var(--sidebar-width);
+    .page-sidebar-menu {
+      gap: 10px;
+      .menu-item-icon {
+        align-self: center;
+      }
+      .menu-item-title {
+        color: #050505;
+      }
+    }
+  }
+  .page-sidebar-content {
+    position: relative;
+    .page-navbar {
+      background-color: var(--user-root-color);
+      color: var(--toolbar-color);
+      height: var(--toolbar-height);
+      position: sticky;
+      top: 0;
+      flex-wrap: nowrap;
+      .page-navbar-content {
+        flex-grow: 1;
+      }
+    }
+    .page-views-content {
+      min-height: 80vh;
+    }
+    .page-footer {
+      background-color: var(--footer-bg);
+      color: var(--footer-color);
+      min-height: var(--footer-height);
+    }
+  }
+}
+
+.mat-drawer-container {
+  overflow: visible;
+  .mat-drawer-content {
+    overflow: visible;
+  }
+}

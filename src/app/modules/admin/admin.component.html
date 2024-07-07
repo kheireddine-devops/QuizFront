@@ -1,1 +1,41 @@
-<p>admin works!</p>
+<mat-sidenav-container class="page-container">
+  <mat-sidenav #SideBarRef class="page-sidebar"
+               fixedInViewport="true"
+               fixedTopGap="0"
+               fixedBottomGap="0"
+               mode="side"
+               position="start"
+               opened="true">
+    <mat-nav-list>
+      @for (menuItem of menus; track menuItem) {
+        <mat-list-item [routerLink]="menuItem.path" class="page-sidebar-menu">
+          <mat-icon matListItemIcon class="menu-item-icon">{{menuItem.icon}}</mat-icon>
+          <div matListItemTitle class="menu-item-title">{{menuItem.title}}</div>
+        </mat-list-item>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="page-sidebar-content">
+      <mat-toolbar class="page-navbar" color="primary">
+        <button type="button" mat-icon-button (click)="SideBarRef.toggle()">
+          <mat-icon>home</mat-icon>
+        </button>
+        <div class="page-navbar-content">
+        </div>
+        <button type="button" mat-icon-button>
+          <mat-icon>logout</mat-icon>
+        </button>
+      </mat-toolbar>
+
+      <div class="page-views-content">
+        <router-outlet></router-outlet>
+      </div>
+
+      <footer class="page-footer">
+       Footer Section Is Working...
+      </footer>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

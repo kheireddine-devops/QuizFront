@@ -1,4 +1,32 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --root-text-color: #1c1e21;
+  --root-container-bg: #f0f2f5;
+  --sidebar-width: 300px;
+  --toolbar-height: 60px;
+  --toolbar-bg: tomato;
+  --toolbar-color: #ffffff;
+  --footer-bg: #f3f6fb;
+  --footer-color: #1c1e21;
+  --footer-height: 200px;
+
+  --admin-root-color: rgb(0 43 174);
+  --user-root-color: hsl(5 84.112% 58.039%/1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--root-text-color);
+  background-color: var(--root-container-bg);
+}
+
+.page-container {
+  background-color: var(--root-container-color);
+}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
