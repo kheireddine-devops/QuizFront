@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, Observable, of, tap} from "rxjs";
-import {AuthRequest, AuthResponse, RoleEnum} from "../models/user.model";
+import {AuthRequest, AuthResponse} from "../models/user.model";
 import {TokenUtilsService} from "./utils/token-utils.service";
+import {RoleEnum} from "../enums/enums";
 
 @Injectable({
   providedIn: 'root'

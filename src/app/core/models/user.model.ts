@@ -1,3 +1,5 @@
+import {GenderEnum, RoleEnum} from "../enums/enums";
+
 export interface AuthRequest {
   login: string;
   password: string;
@@ -5,16 +7,6 @@ export interface AuthRequest {
 
 export interface AuthResponse {
   token: string;
-}
-
-export enum RoleEnum {
-  ROLE_ADMIN="ROLE_ADMIN",
-  ROLE_USER="ROLE_USER",
-}
-
-export enum GenderEnum {
-  MALE="MALE",
-  FEMALE="FEMALE"
 }
 
 export interface User {

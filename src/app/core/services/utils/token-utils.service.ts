@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {jwtDecode, JwtPayload} from "jwt-decode";
-import {RoleEnum} from "../../models/user.model";
+import {RoleEnum} from "../../enums/enums";
+
 
 @Injectable({
   providedIn: 'root'
