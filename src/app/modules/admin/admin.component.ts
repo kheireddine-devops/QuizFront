@@ -3,13 +3,14 @@ import {MatSidenav, MatSidenavModule} from "@angular/material/sidenav";
 import {MatListItem, MatNavList} from "@angular/material/list";
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatIcon} from "@angular/material/icon";
-import {RouterLink, RouterOutlet} from "@angular/router";
+import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {MatIconButton} from "@angular/material/button";
 import {MenuItem} from "../../core/models/utils.model";
 import {UserService} from "../../core/services/user.service";
 import {User} from "../../core/models/user.model";
 import {Subscription} from "rxjs";
 import {JsonPipe} from "@angular/common";
+import {AuthService} from "../../core/services/auth.service";
 
 @Component({
   selector: 'app-admin',
@@ -37,8 +38,11 @@ export class AdminComponent implements OnInit, OnDestroy {
   ];
   users: Array<User> = [];
   private _usersSubscription$: Subscription | undefined;
+  private _signOutSubscription$: Subscription | undefined;
 
-  constructor(private _userService: UserService) {
+  constructor(private _userService: UserService,
+              private _authService: AuthService,
+              private _router: Router) {
   }
 
   ngOnInit(): void {
@@ -51,5 +55,16 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._usersSubscription$?.unsubscribe();
+    this._signOutSubscription$?.unsubscribe();
+  }
+
+  onSignOut(): void {
+    this._signOutSubscription$ = this._authService.logout().subscribe({
+      next: (value: boolean): void => {
+        if (value) {
+          this._router.navigateByUrl("/guest/sign-in").then();
+        }
+      }
+    });
   }
 }

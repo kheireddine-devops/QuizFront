@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-category-page',
+  selector: 'app-admin-category-page',
   standalone: true,
   imports: [],
   templateUrl: './category-page.component.html',

@@ -1,1 +1,47 @@
-<p>sign-in-page works!</p>
+<div class="auth-page">
+  <mat-card appearance="outlined" class="auth-page-card">
+    <mat-card-header class="auth-card-header">
+      <mat-card-title> Sign in </mat-card-title>
+      <mat-card-subtitle>Sign in with your credentials below</mat-card-subtitle>
+    </mat-card-header>
+      <div class="auth-card-logo">
+        <img class="logo" src="assets/images/iTeamUniversity-150x50.png" width="150" height="50" alt="iTeam University">
+      </div>
+    <mat-card-content>
+      @if (authInvalid) {
+        <div class="auth-card-msg-errors alert alert-danger">Login or password incorrect</div>
+      }
+      <form [formGroup]="authFormGroup">
+        <div class="auth-card-forms">
+
+          <mat-form-field appearance="outline" >
+            <mat-label>Username</mat-label>
+            <input required formControlName="login" matInput>
+            @if(authFormGroup.get('login')?.invalid && authFormGroup.get('login')?.touched){
+              <mat-error>
+                @if (authFormGroup.get('login')?.hasError('required')) {Username Is Required}
+              </mat-error>
+            }
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input type="password" required formControlName="password" name="password" matInput>
+            @if (authFormGroup.get('password')?.invalid && authFormGroup.get('password')?.touched) {
+              <mat-error>
+                @if (authFormGroup.get('password')?.hasError('required')) {Password Is Required}
+              </mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-card-content>
+    <mat-card-actions class="auth-card-actions">
+      <button class="auth-btn-sign-in" [disabled]="authFormGroup.invalid" color="primary" mat-flat-button (click)="onSignIn()">SIGN-IN</button>
+    </mat-card-actions>
+    <mat-card-footer class="auth-card-footer">
+      <p>Don't have an account? <a routerLink="/guest/sign-up">Click here to create one</a></p>
+    </mat-card-footer>
+  </mat-card>
+</div>
