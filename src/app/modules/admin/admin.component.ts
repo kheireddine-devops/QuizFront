@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatSidenav, MatSidenavModule} from "@angular/material/sidenav";
 import {MatListItem, MatNavList} from "@angular/material/list";
 import {MatToolbar} from "@angular/material/toolbar";
@@ -6,6 +6,10 @@ import {MatIcon} from "@angular/material/icon";
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {MatIconButton} from "@angular/material/button";
 import {MenuItem} from "../../core/models/utils.model";
+import {UserService} from "../../core/services/user.service";
+import {User} from "../../core/models/user.model";
+import {Subscription} from "rxjs";
+import {JsonPipe} from "@angular/common";
 
 @Component({
   selector: 'app-admin',
@@ -19,15 +23,33 @@ import {MenuItem} from "../../core/models/utils.model";
     RouterOutlet,
     MatListItem,
     RouterLink,
-    MatIconButton
+    MatIconButton,
+    JsonPipe
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss'
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit, OnDestroy {
   menus: Array<MenuItem> = [
     {icon: "dashboard", path: "/admin/home", title: "Dashboard"},
     {icon: "playlist_add", path: "/admin/categories", title: "Quizs"},
     {icon: "list_alt", path: "/admin/results", title: "Results"},
-  ]
+  ];
+  users: Array<User> = [];
+  private _usersSubscription$: Subscription | undefined;
+
+  constructor(private _userService: UserService) {
+  }
+
+  ngOnInit(): void {
+    this._usersSubscription$ = this._userService.getAllUsers().subscribe({
+      next: (users: Array<User>): void => {
+        this.users = users;
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this._usersSubscription$?.unsubscribe();
+  }
 }
