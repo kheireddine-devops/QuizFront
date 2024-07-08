@@ -8,7 +8,7 @@
                opened="true">
     <mat-nav-list>
       @for (menuItem of menus; track menuItem) {
-        <mat-list-item [routerLink]="menuItem.path" class="page-sidebar-menu">
+        <mat-list-item routerLinkActive="active" [routerLink]="menuItem.path" class="page-sidebar-menu">
           <mat-icon matListItemIcon class="menu-item-icon">{{menuItem.icon}}</mat-icon>
           <div matListItemTitle class="menu-item-title">{{menuItem.title}}</div>
         </mat-list-item>

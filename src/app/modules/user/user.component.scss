@@ -14,6 +14,7 @@
   .page-sidebar-content {
     position: relative;
     .page-navbar {
+      z-index: 1050;
       background-color: var(--user-root-color);
       color: var(--toolbar-color);
       height: var(--toolbar-height);

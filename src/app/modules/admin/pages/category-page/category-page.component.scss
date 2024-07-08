@@ -1,0 +1,89 @@
+.categories-page {
+  padding: 2em;
+  .categories-page-card {
+    padding: 20px 10px;
+    .categories-card-content {
+      padding: 20px 10px;
+      .categories {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 250px);
+        grid-template-rows: repeat(auto-fill, 250px);
+        gap: 10px;
+        justify-content: center;
+        .add-category {
+          background-color: #f0f2f5;
+          border: solid 1px #bbbbbb;
+          border-radius: 8px;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .category-btn-add {
+
+          }
+          &:hover {
+            border-color: #7371FC;
+            cursor: pointer;
+          }
+        }
+        .category {
+          position: relative;
+          padding: 32px 24px;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          width: 250px;
+          height: 250px;
+          &:hover {
+            background-color: #F5EFFF;
+            border-color: #7371FC;
+          }
+          .category-name {
+            .category-nb-questions {
+              margin-left: 0.5em;
+              padding: 0.2em 0.3em;
+              font-size: 0.8em;
+              color: #7371FC;
+              background-color: #eee;
+              border-radius: 8px;
+            }
+          }
+          .category-description {
+            font-size: 0.9em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 5;
+            -webkit-box-orient: vertical;
+          }
+          .category-btn-edit-fixed {
+            position: absolute;
+            width: calc(100% - 20px);
+            height: 50px;
+            bottom: 8px;
+            right: 10px;
+            left: 10px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+            .category-btn-edit {
+              width: 65%;
+            }
+          }
+          .category-btn-delete-fixed {
+            position: absolute;
+            top: 7px;
+            right: 7px;
+            width: 24px;
+            height: 24px;
+            color: #FFB996;
+            cursor: pointer;
+          }
+        }
+      }
+
+    }
+  }
+}

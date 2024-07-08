@@ -3,7 +3,7 @@ import {MatSidenav, MatSidenavModule} from "@angular/material/sidenav";
 import {MatListItem, MatNavList} from "@angular/material/list";
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatIcon} from "@angular/material/icon";
-import {Router, RouterLink, RouterOutlet} from "@angular/router";
+import {Router, RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 import {MatIconButton} from "@angular/material/button";
 import {MenuItem} from "../../core/models/utils.model";
 import {UserService} from "../../core/services/user.service";
@@ -25,7 +25,8 @@ import {AuthService} from "../../core/services/auth.service";
     MatListItem,
     RouterLink,
     MatIconButton,
-    JsonPipe
+    JsonPipe,
+    RouterLinkActive
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss'

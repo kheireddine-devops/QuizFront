@@ -1,0 +1,100 @@
+<h2 mat-dialog-title>{{data.mode === ModeEnum.CREATION ? "Add Category": "Edit Category"}}</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="categoryFormGroup">
+    <div class="category-card-forms">
+
+      <mat-form-field appearance="outline" >
+        <mat-label>Name</mat-label>
+        <input required formControlName="name" matInput>
+        @if(categoryFormGroup.get('name')?.invalid && categoryFormGroup.get('name')?.touched){
+          <mat-error>
+            @if (categoryFormGroup.get('name')?.hasError('required')) {category name is required}
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" >
+        <mat-label>Description</mat-label>
+        <textarea formControlName="description"
+                  cdkTextareaAutosize
+                  cdkAutosizeMinRows="5"
+                  cdkAutosizeMaxRows="10"
+                  matInput></textarea>
+        @if(categoryFormGroup.get('description')?.invalid && categoryFormGroup.get('description')?.touched){
+          <mat-error>
+            @if (categoryFormGroup.get('description')?.hasError('required')) {category description is required}
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <div formArrayName="quiz" class="quiz">
+        @for(question of questions.controls; track question; let questionIndex = $index) {
+              <div [formGroupName]="questionIndex" class="category-card-forms-quiz">
+                <div class="forms-quiz">
+                  <mat-form-field appearance="outline" class="forms-quiz-description">
+                    <mat-label>Question N°{{questionIndex + 1}}</mat-label>
+                    <input required formControlName="description" matInput>
+                    @if(question.get('description')?.invalid && question.get('description')?.touched) {
+                      <mat-error>
+                        @if(question.get('description')?.hasError('required')) {Question description is required}
+                      </mat-error>
+                    }
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="forms-quiz-score">
+                    <mat-label>Score</mat-label>
+                    <input formControlName="score" matInput type="number">
+                    @if(question.get('score')?.invalid && question.get('score')?.touched) {
+                      <mat-error>
+                        @if(question.get('score')?.hasError('required')) {Score is required}
+                      </mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+                <div class="forms-quiz-btn-actions-fixed">
+                  <mat-icon (click)="onDeleteQuestion(questionIndex)" aria-hidden="false" fontIcon="do_not_disturb_on"></mat-icon>
+                </div>
+                <div formArrayName="options" class="question-options">
+                  @for(option of getOptions(questionIndex).controls; track optionIndex; let optionIndex = $index) {
+                    <div [formGroupName]="optionIndex" class="question-option">
+                      <mat-form-field appearance="outline" class="option-description">
+                        <mat-label>Option {{optionIndex + 1}}</mat-label>
+                        <input formControlName="description" matInput>
+                        @if(option.get('description')?.invalid && option.get('description')?.touched) {
+                          <mat-error>
+                            @if(option.get('description')?.hasError('required')){option is required}
+                          </mat-error>
+                        }
+                      </mat-form-field>
+
+<!--                      <mat-checkbox formControlName="correct" class="option-correct"></mat-checkbox>-->
+
+                      <mat-button-toggle-group class="option-correct" formControlName="correct">
+                        <mat-button-toggle [value]="true">Ture</mat-button-toggle>
+                        <mat-button-toggle [value]="false">False</mat-button-toggle>
+                      </mat-button-toggle-group>
+
+                      <button type="button" mat-icon-button class="option-delete" (click)="onDeleteQuestionOption(questionIndex,optionIndex)">
+                        <mat-icon aria-hidden="false" color="" fontIcon="do_not_disturb_on"></mat-icon>
+                      </button>
+                    </div>
+                  }
+                  <button color="primary" class="question-btn-add-option" mat-flat-button (click)="addOption($event,questionIndex)">Add Option</button>
+                </div>
+              </div>
+        }
+
+        <button color="primary" class="forms-quiz-btn-add-question" mat-flat-button type="button" (click)="addQuestion()">Add Question</button>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  @if(data.mode === ModeEnum.CREATION) {
+    <button [disabled]="categoryFormGroup.invalid" [color]="'primary'" mat-button cdkFocusInitial (click)="onAddCategory()">Add Category</button>
+  } @else {
+    <button [disabled]="categoryFormGroup.invalid" [color]="'primary'" mat-button cdkFocusInitial (click)="onEditCategory()">Edit Category</button>
+  }
+
+</mat-dialog-actions>

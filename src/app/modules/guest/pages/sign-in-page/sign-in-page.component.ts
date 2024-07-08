@@ -48,7 +48,7 @@ import {TokenUtilsService} from "../../../../core/services/utils/token-utils.ser
 export class SignInPageComponent implements OnInit, OnDestroy {
   protected authInvalid: boolean = false;
   private _authSubscription$: Subscription | undefined;
-  authFormGroup: UntypedFormGroup;
+  protected authFormGroup: UntypedFormGroup;
 
   constructor(private _authService: AuthService,
               private _tokenUtilsService: TokenUtilsService,
@@ -58,10 +58,10 @@ export class SignInPageComponent implements OnInit, OnDestroy {
       login: ["", [Validators.required]],
       password: ["", [Validators.required]]
     })
-    // this.authFormGroup.patchValue({
-    //   login: "kheireddine.dev.ops@gmail.fr",
-    //   password: "user"
-    // })
+    this.authFormGroup.patchValue({
+      login: "kheireddine.dev.ops@gmail.com",
+      password: "admin"
+    })
   }
 
   ngOnInit(): void {

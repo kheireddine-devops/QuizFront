@@ -56,3 +56,24 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border: 1px solid transparent;
   border-radius: .25rem;
 }
+
+.mat-button.mat-danger,
+.mat-stroked-button.mat-danger {
+  color: #FFB996;
+}
+.mat-button.mat-danger:hover,
+.mat-stroked-button.mat-danger:hover {
+  background-color: #f0fff3;
+}
+
+.mat-raised-button.mat-danger,
+.mat-flat-button.mat-danger,
+.mat-fab.mat-danger,
+.mat-mini-fab.mat-danger {
+  color: #f0fff3;
+  background-color: #FFB996;
+}
+
+.mat-icon-button.mat-danger {
+  color:#FFB996;
+}
