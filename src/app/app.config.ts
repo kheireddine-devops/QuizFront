@@ -1,5 +1,5 @@
 import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {provideRouter, withInMemoryScrolling} from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -8,7 +8,11 @@ import {tokenInterceptor} from "./core/interceptors/token.interceptor";
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),
+    provideRouter(routes,
+      withInMemoryScrolling({
+        scrollPositionRestoration: "top",
+      })
+    ),
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([tokenInterceptor])),
   ]

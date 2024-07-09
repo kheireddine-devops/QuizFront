@@ -17,6 +17,10 @@
       overflow-x: hidden;
       overflow-y: auto;
 
+      &.disabled-test {
+        opacity: 0.8;
+      }
+
       &::-webkit-scrollbar {
         width: 8px;
         height: 8px;
@@ -57,4 +61,14 @@
     justify-content: end;
     gap: 10px;
   }
+}
+
+
+.correct-answer {
+  color: #80AF81 !important;
+}
+
+.incorrect-answer {
+  color: #EB5B00 !important;
+  text-decoration: line-through !important;
 }

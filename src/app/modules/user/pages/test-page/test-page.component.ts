@@ -4,10 +4,10 @@ import {Category} from "../../../../core/models/category.model";
 import {CategoryService} from "../../../../core/services/category.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {JsonPipe} from "@angular/common";
+import {JsonPipe, NgClass} from "@angular/common";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatButton, MatButtonModule} from "@angular/material/button";
-import {ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup} from "@angular/forms";
+import {ReactiveFormsModule, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup} from "@angular/forms";
 import {Option} from "../../../../core/models/option.model";
 import {Question} from "../../../../core/models/question.model";
 import {ResultService} from "../../../../core/services/result.service";
@@ -23,7 +23,8 @@ import {AuthService} from "../../../../core/services/auth.service";
     MatCheckbox,
     MatButtonModule,
     RouterLink,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgClass
   ],
   templateUrl: './test-page.component.html',
   styleUrl: './test-page.component.scss'
@@ -34,6 +35,7 @@ export class TestPageComponent implements OnInit, OnDestroy {
   private _resultSubscription$: Subscription | undefined;
   protected userTest: Category | undefined;
   protected userTestFormGroup: UntypedFormGroup;
+  protected answered: boolean = false;
 
   constructor(private _categoryService: CategoryService,
               private _resultService: ResultService,
@@ -73,19 +75,20 @@ export class TestPageComponent implements OnInit, OnDestroy {
     const uid: string | null = this._authService.getCurrentUID();
     if (this.category && this.category?.id && uid) {
       const score: number = this.calculateScore();
+      this.answered = true;
 
       const result: Result = {
         userId: uid,
         categoryId: this.category.id,
         totalScore: score
       };
-      // this._resultSubscription$ = this._resultService.addResult(result).subscribe({
-      //   next: (result: Result): void => {
-      //     if (result) {
-      //       console.log(result)
-      //     }
-      //   }
-      // });
+      this._resultSubscription$ = this._resultService.addResult(result).subscribe({
+        next: (result: Result): void => {
+          if (result) {
+            console.log(result)
+          }
+        }
+      });
     }
   }
 
@@ -145,10 +148,27 @@ export class TestPageComponent implements OnInit, OnDestroy {
       for (let i = 0; i < category.quiz.length; i++) {
         if (category.quiz[i]?.options) {
           for (let j = 0; j < category.quiz[i]?.options.length; j++) {
+            const correct: boolean = (this.category?.quiz[i]?.options[j]) ? this.category.quiz[i].options[j].correct: false;
             this.userTestFormGroup.addControl(`question_${i}_option${j}`, this._ufb.control(false));
+            this.userTestFormGroup.addControl(`question_${i}_option${j}_correct`, new UntypedFormControl(correct));
           }
         }
       }
     }
+  }
+
+  getOptionColor(quizIndex: number, optionIndex: number): string {
+    const userResponse = this.userTestFormGroup.get(`question_${quizIndex}_option${optionIndex}`)?.value;
+    const correctResponse = this.userTestFormGroup.get(`question_${quizIndex}_option${optionIndex}_correct`)?.value;
+    if (this.answered) {
+      console.log("userResponse : ",userResponse)
+      console.log("correctResponse : ",correctResponse)
+      if (userResponse === correctResponse) {
+        return 'correct-answer';
+      } else {
+        return 'incorrect-answer';
+      }
+    }
+    return '';
   }
 }

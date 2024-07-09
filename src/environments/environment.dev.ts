@@ -1,3 +1,3 @@
 export const environment = {
-  quizBackUrl : "http://localhost:8081/api"
+  quizBackUrl : "http://localhost:8080/api"
 };
