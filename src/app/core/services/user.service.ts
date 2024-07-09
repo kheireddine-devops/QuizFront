@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
-import {User} from "../models/user.model";
+import { UserRequest, UserResponse} from "../models/user.model";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 
@@ -11,7 +11,12 @@ export class UserService {
 
   constructor(private _http: HttpClient) { }
 
-  getAllUsers(): Observable<Array<User>> {
-    return this._http.get<Array<User>>(`${environment.quizBackUrl}/users/all`);
+  getAllUsers(): Observable<Array<UserResponse>> {
+    return this._http.get<Array<UserResponse>>(`${environment.quizBackUrl}/users/all`);
+  }
+
+
+  signUp(newUser: UserRequest): Observable<UserResponse> {
+    return this._http.post<UserResponse>(`${environment.quizBackUrl}/register`,newUser);
   }
 }

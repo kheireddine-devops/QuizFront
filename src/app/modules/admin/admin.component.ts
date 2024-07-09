@@ -7,10 +7,10 @@ import {Router, RouterLink, RouterLinkActive, RouterOutlet} from "@angular/route
 import {MatIconButton} from "@angular/material/button";
 import {MenuItem} from "../../core/models/utils.model";
 import {UserService} from "../../core/services/user.service";
-import {User} from "../../core/models/user.model";
 import {Subscription} from "rxjs";
 import {JsonPipe} from "@angular/common";
 import {AuthService} from "../../core/services/auth.service";
+import {UserResponse} from "../../core/models/user.model";
 
 @Component({
   selector: 'app-admin',
@@ -37,7 +37,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     {icon: "playlist_add", path: "/admin/categories", title: "Quizs"},
     {icon: "list_alt", path: "/admin/results", title: "Results"},
   ];
-  users: Array<User> = [];
+  users: Array<UserResponse> = [];
   private _usersSubscription$: Subscription | undefined;
   private _signOutSubscription$: Subscription | undefined;
 
@@ -48,7 +48,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._usersSubscription$ = this._userService.getAllUsers().subscribe({
-      next: (users: Array<User>): void => {
+      next: (users: Array<UserResponse>): void => {
         this.users = users;
       }
     });

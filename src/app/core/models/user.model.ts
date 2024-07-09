@@ -9,7 +9,16 @@ export interface AuthResponse {
   token: string;
 }
 
-export interface User {
+export interface UserRequest {
+  firstname: string;
+  lastname: string;
+  birthDate: Date;
+  gender: GenderEnum;
+  email: string;
+  password: string;
+}
+
+export interface UserResponse {
   id: string;
   firstname: string;
   lastname: string;

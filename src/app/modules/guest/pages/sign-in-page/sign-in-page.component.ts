@@ -58,10 +58,10 @@ export class SignInPageComponent implements OnInit, OnDestroy {
       login: ["", [Validators.required]],
       password: ["", [Validators.required]]
     })
-    this.authFormGroup.patchValue({
-      login: "kheireddine.dev.ops@gmail.fr",
-      password: "user"
-    })
+    // this.authFormGroup.patchValue({
+    //   login: "kheireddine.dev.ops@gmail.fr",
+    //   password: "user"
+    // })
   }
 
   ngOnInit(): void {
