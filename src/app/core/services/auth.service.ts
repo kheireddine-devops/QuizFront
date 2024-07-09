@@ -44,6 +44,10 @@ export class AuthService {
     return false;
   }
 
+  getCurrentUID(): string | null {
+    return this._tokenUtilsService.getCurrentUserUIDByToken();
+  }
+
   _isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   enableAuth() {
     this._isLoggedIn$.next(true);

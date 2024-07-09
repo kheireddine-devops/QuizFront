@@ -87,4 +87,12 @@ export class TokenUtilsService {
     }
     return null;
   }
+
+  getCurrentUserUIDByToken(): RoleEnum | null {
+    const token = this.getTokenFromLocalStorage();
+    if(token && this.hasClaim(token,"uid")) {
+      return this.getClaim(token,"uid");
+    }
+    return null;
+  }
 }

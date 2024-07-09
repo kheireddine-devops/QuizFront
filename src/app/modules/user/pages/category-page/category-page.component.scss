@@ -3,7 +3,7 @@
   .categories-page-card {
     padding: 20px 10px;
     .categories-card-content {
-      padding: 20px 10px;
+      padding: 10px;
       .categories {
         display: grid;
         grid-template-columns: repeat(auto-fill, 250px);
@@ -29,23 +29,45 @@
         }
         .category {
           position: relative;
-          padding: 32px 24px;
+          padding: 10px;
           border: 1px solid #ddd;
           border-radius: 8px;
           width: 250px;
           height: 250px;
+          &.disabled-category {
+            opacity: 0.5;
+            border-color: var(--user-root-color);
+            &:hover {
+              background-color: initial;
+              cursor: not-allowed;
+            }
+            .category-btn-edit-fixed {
+              * {
+                cursor: not-allowed;
+              }
+            }
+          }
           &:hover {
             background-color: #F5EFFF;
             border-color: #7371FC;
           }
-          .category-name {
-            .category-nb-questions {
-              margin-left: 0.5em;
-              padding: 0.2em 0.3em;
-              font-size: 0.8em;
-              color: #7371FC;
-              background-color: #eee;
-              border-radius: 8px;
+          .category-name-container {
+            height: 60px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+            .category-name {
+              text-align: center;
+              .category-nb-questions {
+                margin-left: 0.5em;
+                padding: 0.2em 0.3em;
+                font-size: 0.8em;
+                color: #7371FC;
+                background-color: #eee;
+                border-radius: 8px;
+              }
             }
           }
           .category-description {
@@ -71,15 +93,6 @@
             .category-btn-edit {
               width: 65%;
             }
-          }
-          .category-btn-delete-fixed {
-            position: absolute;
-            top: 7px;
-            right: 7px;
-            width: 24px;
-            height: 24px;
-            color: #FFB996;
-            cursor: pointer;
           }
         }
       }

@@ -10,6 +10,9 @@ import {MatButton, MatButtonModule} from "@angular/material/button";
 import {ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup} from "@angular/forms";
 import {Option} from "../../../../core/models/option.model";
 import {Question} from "../../../../core/models/question.model";
+import {ResultService} from "../../../../core/services/result.service";
+import {Result} from "../../../../core/models/result.model";
+import {AuthService} from "../../../../core/services/auth.service";
 
 @Component({
   selector: 'app-test-page',
@@ -28,10 +31,13 @@ import {Question} from "../../../../core/models/question.model";
 export class TestPageComponent implements OnInit, OnDestroy {
   protected category: Category | undefined;
   private _categorySubscription$: Subscription | undefined;
+  private _resultSubscription$: Subscription | undefined;
   protected userTest: Category | undefined;
   protected userTestFormGroup: UntypedFormGroup;
 
   constructor(private _categoryService: CategoryService,
+              private _resultService: ResultService,
+              private _authService: AuthService,
               private _ufb: UntypedFormBuilder,
               private _router: Router,
               private _activatedRoute: ActivatedRoute) {
@@ -40,6 +46,7 @@ export class TestPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._categorySubscription$?.unsubscribe();
+    this._resultSubscription$?.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -63,10 +70,29 @@ export class TestPageComponent implements OnInit, OnDestroy {
   }
 
   onValidateTest(): void {
+    const uid: string | null = this._authService.getCurrentUID();
+    if (this.category && this.category?.id && uid) {
+      const score: number = this.calculateScore();
+
+      const result: Result = {
+        userId: uid,
+        categoryId: this.category.id,
+        totalScore: score
+      };
+      // this._resultSubscription$ = this._resultService.addResult(result).subscribe({
+      //   next: (result: Result): void => {
+      //     if (result) {
+      //       console.log(result)
+      //     }
+      //   }
+      // });
+    }
+  }
+
+  private calculateScore(): number {
+    let score = 0;
     if (this.category && this.userTest) {
       if (this.category && this.userTest) {
-        let score = 0;
-
         for (let quizIndex = 0; quizIndex < this.category.quiz.length; quizIndex++) {
           const question = this.category.quiz[quizIndex];
           let questionScore = question.score;
@@ -78,7 +104,7 @@ export class TestPageComponent implements OnInit, OnDestroy {
 
             if (formControl?.value !== option.correct) {
               allCorrect = false;
-              break;t status
+              break;
             }
           }
 
@@ -86,10 +112,9 @@ export class TestPageComponent implements OnInit, OnDestroy {
             score += questionScore;
           }
         }
-
-        alert(`Your score is: ${score}`);
       }
     }
+    return score;
   }
 
   private initTest(category: Category): Category {

@@ -6,17 +6,23 @@
     <mat-card-content class="categories-card-content">
       <div class="categories">
         @for (category of categories; track category) {
-          <div class="category">
-            <h2 class="category-name">{{category.name}}
-              @if(category?.quiz) {
-                <span class="category-nb-questions">{{category?.quiz?.length}} Question(s)</span>
-              } @else {
-                <span class="category-nb-questions">0 Question(s)</span>
-              }
-            </h2>
+          <div class="category" [class.disabled-category]="!checkPermission(category)">
+            <div class="category-name-container">
+              <h2 class="category-name">{{category.name}}
+                @if(category?.quiz) {
+                  <span class="category-nb-questions">{{category?.quiz?.length}} Question(s)</span>
+                } @else {
+                  <span class="category-nb-questions">0 Question(s)</span>
+                }
+              </h2>
+            </div>
             <p class="category-description">{{category.description}}</p>
             <div class="category-btn-edit-fixed">
-              <button mat-stroked-button class="category-btn-edit" (click)="onTakeQuiz(category)">Take this Test</button>
+              @if (checkPermission(category)) {
+                <button mat-stroked-button class="category-btn-edit" (click)="onTakeQuiz(category)">Take this Test</button>
+              } @else {
+                <button [color]="'warn'" [disableRipple]="'true'" mat-stroked-button class="category-btn-edit">Your Score : {{getScore(category)}}</button>
+              }
             </div>
           </div>
         }
