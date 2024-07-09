@@ -1,0 +1,60 @@
+.test-page {
+  padding: 2em;
+  .test-card-header {
+    background-color: #F3F3F3;
+    padding: 1em;
+    border-radius: 5px;
+  }
+  .test-page-card {
+    margin: auto;
+    width: 250mm;
+    height: 297mm;
+    padding: 20px 10px;
+
+
+    .test-card-content {
+      padding: 20px 10px;
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      &::-webkit-scrollbar-thumb {
+        //background: #EEEEEE  ;
+        background-color: #EEEEEE;
+        border-radius: 5px;
+      }
+      &::-webkit-scrollbar-track {
+        //background-color: #ddd;
+        background-color: #F1F8E8;
+        border: 1px solid #F1F8E8;
+      }
+      &::-webkit-scrollbar-button {
+        background-color: transparent;
+        border-radius: 5px;
+      }
+      &::-webkit-scrollbar-button:hover {
+        background-color: #F1F8E8;
+      }
+
+      ul {
+        list-style-type: none;
+        margin-top: 4px;
+      }
+    }
+  }
+
+  .test-card-actions {
+    border: solid 1px #F3F3F3;
+    padding: 1em;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: end;
+    gap: 10px;
+  }
+}

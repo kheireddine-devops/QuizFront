@@ -59,8 +59,8 @@ export class SignInPageComponent implements OnInit, OnDestroy {
       password: ["", [Validators.required]]
     })
     this.authFormGroup.patchValue({
-      login: "kheireddine.dev.ops@gmail.com",
-      password: "admin"
+      login: "kheireddine.dev.ops@gmail.fr",
+      password: "user"
     })
   }
 

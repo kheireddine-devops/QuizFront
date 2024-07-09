@@ -11,7 +11,6 @@ import {MatDialog} from "@angular/material/dialog";
 import {AddCategoryComponent} from "../../dialogs/add-category/add-category.component";
 import {ConfirmDeleteCategoryComponent} from "../../dialogs/confirm-delete-category/confirm-delete-category.component";
 import {ModeEnum} from "../../../../core/models/utils.model";
-import {MatDivider} from "@angular/material/divider";
 
 @Component({
   selector: 'app-admin-category-page',
@@ -26,8 +25,7 @@ import {MatDivider} from "@angular/material/divider";
     MatGridTile,
     MatGridList,
     MatButtonModule,
-    MatIconModule,
-    MatDivider
+    MatIconModule
   ],
   templateUrl: './category-page.component.html',
   styleUrl: './category-page.component.scss'

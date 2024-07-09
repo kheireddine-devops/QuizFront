@@ -26,4 +26,8 @@ export class CategoryService {
   deleteCategory(categoryId: string): Observable<any> {
     return this._http.delete<any>(`${environment.quizBackUrl}/category/${categoryId}`);
   }
+
+  getCategoryById(categoryId: string): Observable<Category> {
+    return this._http.get<Category>(`${environment.quizBackUrl}/category/${categoryId}`);
+  }
 }
